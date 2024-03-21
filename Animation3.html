@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Box Move</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box; 
+        }
+
+        body {
+            overflow: hidden;
+            height: 100vh;
+            position: relative; 
+        }
+
+        span {
+            position: absolute;
+            background: url(Bubble.jpg);
+            background-size: cover;
+            transform: translate(-50%,-50%);
+            border-radius: 50%;
+            animation: animate 4s linear infinite;
+            width: 20px;
+            height: 20px;
+            background: #000;
+            pointer-events: none;
+        }
+        @keyframes animate{
+
+            0%
+            {
+                transform: translate(-50%,-50%);
+                opacity: 1;
+            }
+            100%{
+                transform: translate(-50%,1000%);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <script type="text/javascript"> 
+        document.addEventListener("mousemove", function(e) { 
+            var body = document.querySelector('body');
+            var bubbles = document.createElement("span");
+            var x = e.clientX; 
+            var y = e.clientY; 
+            bubbles.style.left = x + 'px';
+            bubbles.style.top = y + 'px';
+            var size = Math.random() * 100;
+            body.appendChild(bubbles);
+            setTimeout(function() {
+                body.removeChild(bubbles); 
+            }, 3000); 
+        });
+    </script>
+</body>
+</html>

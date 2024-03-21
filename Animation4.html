@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloud & Raindrop Animation</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background-color: #87CEEB; /* Sky blue background color */
+        }
+
+        .cloud {
+            position: fixed;
+            top: 20%;
+            left: 20%;
+            width: 150px;
+            height: 80px;
+            background-color: #000; /* Black cloud color */
+            border-radius: 50px; /* Rounded shape for cloud */
+            animation: moveCloud 10s linear infinite; /* Cloud animation */
+        }
+
+        .raindrop {
+            position: absolute;
+            width: 2px;
+            height: 10px;
+            background-color: #00f; /* Blue raindrop color */
+            animation: fallRaindrop 1s linear infinite; /* Raindrop animation */
+        }
+
+        @keyframes moveCloud {
+            0% { left: 20%; }
+            50% { left: 60%; }
+            100% { left: 20%; }
+        }
+
+        @keyframes fallRaindrop {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100vh); }
+        }
+
+        .lightning-button {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 10px 20px;
+            background-color: #f00; /* Red button color */
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="cloud"></div>
+        <script>
+            // JavaScript for creating raindrops
+            window.onload = function() {
+                var container = document.querySelector('.container');
+                var cloud = document.querySelector('.cloud');
+                
+                // Create raindrops
+                for (var i = 0; i < 50; i++) {
+                    var raindrop = document.createElement('div');
+                    raindrop.classList.add('raindrop');
+                    raindrop.style.left = Math.random() * cloud.offsetWidth + 'px'; // Randomize raindrop position within the cloud
+                    raindrop.style.top = Math.random() * cloud.offsetHeight + 'px'; // Randomize raindrop position within the cloud
+                    raindrop.style.animationDelay = Math.random() * 3 + 's'; // Randomize animation delay for raindrop
+                    cloud.appendChild(raindrop); // Append raindrop to the cloud
+                }
+            }
+        </script>
+        <button class="lightning-button" onclick="startLightning()">Start Lightning</button>
+        <script>
+            function startLightning() {
+                var cloud = document.querySelector('.cloud');
+                cloud.style.backgroundColor = '#fff'; // Change cloud color to white during lightning
+                setTimeout(function() {
+                    cloud.style.backgroundColor = '#000'; // Change back to black after lightning
+                }, 500); // Adjust the duration of lightning effect
+            }
+        </script>
+    </div>
+</body>
+</html>

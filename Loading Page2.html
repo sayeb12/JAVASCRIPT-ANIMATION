@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loading Page Animation</title>
+
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            outline: none;
+        }
+
+        body{
+            display: flex;
+            min-height: 100vh;
+            align-items: center;
+            justify-content: center;
+            background: #11102d;
+        }
+
+        .container {
+            text-align: center; /* Center align the contents */
+        }
+
+        .btn{
+            display: block;
+            height: 150px;
+            width: 280px;
+            text-align: center;
+            background: none;
+            font-size: 4.5em;
+            border: 6px solid #fff;
+            border-radius: 100px;
+            color: #fff;
+            text-transform: uppercase;
+            font-family: sans-serif;
+            letter-spacing: 7px;
+            transition: all 0.5s ease;
+            margin-bottom: 20px; /* Add margin bottom to create space between button and loading bar */
+        }
+
+        .loading-container {
+            width: 300px; /* Increased width to accommodate percentage */
+            height: 40px; /* Increased height for better visibility */
+            background-color: #f3f3f3;
+            border-radius: 5px;
+            overflow: hidden;
+            position: relative; /* Added for positioning percentage */
+            margin: 0 auto; /* Center align the loading bar */
+        }
+
+        .loading-bar {
+            width: 0;
+            height: 100%;
+            background-color: #BC07B4; /* Changed color to pink */
+            animation: progress 2s linear forwards;
+        }
+
+        @keyframes progress {
+            0% { width: 0; }
+            100% { width: 100%; }
+        }
+
+        .loading-percentage {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #fff;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <button class="btn" id="loadingBtn">CLICK</button>
+        <div class="loading-container hidden" id="loadingContainer">
+            <div class="loading-bar" id="loadingBar"></div>
+            <div class="loading-percentage" id="loadingPercentage">0%</div> <!-- Added percentage display -->
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('#loadingBtn').on('click', function(){
+                $('#loadingContainer').removeClass('hidden');
+                var percentage = 0;
+                var interval = setInterval(function() {
+                    $('#loadingPercentage').text(percentage + '%');
+                    if (percentage >= 100) {
+                        clearInterval(interval);
+                        setTimeout(function(){
+                            $('#loadingContainer').addClass('hidden');
+                        }, 1000); // Adjust the duration as needed
+                    }
+                    percentage++;
+                }, 20); // Adjust the interval for smoother animation
+            });
+        });
+    </script>
+</body>
+</html>
